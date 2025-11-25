@@ -19,7 +19,7 @@ A Windows-first asset renaming tool with a simple UI (no Node server) and a Rust
 - Click `Execute Rename`
 - Review results and errors in the right panel
 
-- ## CLI Usage
+## CLI Usage
 
 ```
 USAGE:
