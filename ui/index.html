@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>5M Assets Renamer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app">
+      <div class="sidebar">
+        <button id="renamerBtn"><span class="material-symbols-outlined">auto_fix_high</span> Renamer</button>
+        <button id="queueBtn"><span class="material-symbols-outlined">playlist_add</span> Queue</button>
+        <button id="recentBtn"><span class="material-symbols-outlined">history</span> Recent</button>
+        <button id="helpBtn"><span class="material-symbols-outlined">terminal</span> CLI</button>
+        <div class="footer">
+          <div class="footer-block">
+            <div class="brand">5M Assets Renamer</div>
+            <div class="footer-actions">
+              <button id="creditsBtn" class="icon-btn" aria-label="Credits"><span class="material-symbols-outlined">group</span></button>
+              <button id="themeToggle" class="icon-btn" aria-label="Toggle theme"><span id="themeIcon" class="material-symbols-outlined">dark_mode</span></button>
+              <button id="checkUpdates" class="icon-btn" aria-label="Check updates"><span class="material-symbols-outlined">update</span></button>
+              <button id="resultsBarToggle" class="icon-btn" aria-label="Toggle results"><span class="material-symbols-outlined">chevron_right</span></button>
+              <button id="githubBtn" class="icon-btn" aria-label="Open GitHub">
+                <svg class="gh" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12c0 4.7 3 8.7 7.2 10.1.5.1.7-.2.7-.5 0-.2 0-.9 0-1.6-2.9.6-3.6-1.2-3.6-1.2-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 2.6 1.3 3.3.9.1-.7.4-1.2.7-1.5-2.4-.3-5-1.2-5-5.4 0-1.2.4-2.1 1.1-2.9-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 3 1.1.9-.2 1.8-.4 2.7-.4s 1.8.1 2.7.4c2.1-1.5 3-1.1 3-1.1.7 1.5.2 2.6.1 2.9.7.8 1.1 1.7 1.1 2.9 0 4.3-2.6 5.1-5.2 5.4.4.3.8 1 .8 2.1 0 1.5 0 2.6 0 3 .1.3.3.6.8.5 4.2-1.4 7.2-5.4 7.2-10.1C22.5 6.2 17.8 1.5 12 1.5Z"></path></svg>
+              </button>
+            </div>
+            <button id="versionBtn" class="version-btn">v1.0.0</button>
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div id="panelRename" class="panel">
+          <p>Configure path and renaming options</p>
+          <label>Input Directory Path</label>
+          <div class="input-row">
+            <input id="inputPath" type="text" placeholder="C:\Users\noFXAP\Documents\cfx-gabz-bowling\stream">
+            <button id="browseInput" class="icon-btn" aria-label="Browse input"><span class="material-symbols-outlined">folder_open</span></button>
+          </div>
+          <label>Output Directory Path (Optional)</label>
+          <div class="input-row">
+            <input id="outputPath" type="text" placeholder="C:\Users\noFXAP\Documents\cfx-gabz-bowling\stream-fixed">
+            <button id="browseOutput" class="icon-btn" aria-label="Browse output"><span class="material-symbols-outlined">folder_open</span></button>
+          </div>
+          <label>Text to Find *</label>
+          <input id="findText" type="text" placeholder="denis3d_">
+          <label>Renaming Mode</label>
+          <div class="segmented" id="modeSegment">
+            <button data-mode="replace" class="active">Replace</button>
+            <button data-mode="prefix">Prefix</button>
+            <button data-mode="suffix">Suffix</button>
+          </div>
+          <div id="replaceField" class="conditional">
+            <label>Replace With *</label>
+            <input id="replaceText" type="text" placeholder="nofxap_">
+          </div>
+          <div id="prefixField" class="conditional hidden">
+            <label>Prefix Text *</label>
+            <input id="prefix" type="text" placeholder="prefix_">
+          </div>
+          <div id="suffixField" class="conditional hidden">
+            <label>Suffix Text *</label>
+            <input id="suffix" type="text" placeholder="_fixed">
+          </div>
+          <label>Run On Finish</label>
+          <div class="input-row">
+            <select id="onFinish" style="flex:1;height:40px;padding:10px 12px;border:1px solid #2a2a2e;border-radius:12px;background:#1a1821;color:#eaeaea">
+              <option value="none">None</option>
+              <option value="shutdown">Shutdown (OS)</option>
+              <option value="restart">Restart (OS)</option>
+              <option value="close">Close (App)</option>
+              <option value="run_cmd">Run Command Line (CMD)</option>
+            </select>
+            <button id="addFinishBtn" class="icon-btn hidden" aria-label="Add action"><span class="material-symbols-outlined">add</span></button>
+          </div>
+          <div id="finishCmdField" class="conditional hidden">
+            <label>Command Line *</label>
+            <input id="finishCmd" type="text" placeholder="example: shutdown /l">
+          </div>
+          <div id="onFinish2Row" class="conditional hidden">
+            <div class="input-row">
+              <select id="onFinish2" style="flex:1;height:40px;padding:10px 12px;border:1px solid #2a2a2e;border-radius:12px;background:#1a1821;color:#eaeaea">
+                <option value="none">None</option>
+                <option value="shutdown">Shutdown (OS)</option>
+                <option value="restart">Restart (OS)</option>
+                <option value="close">Close (App)</option>
+                <option value="run_cmd">Run Command Line (CMD)</option>
+              </select>
+              <button id="removeFinishBtn" class="icon-btn" aria-label="Remove action"><span class="material-symbols-outlined">remove</span></button>
+            </div>
+          </div>
+          <div id="finishCmdField2" class="conditional hidden">
+            <label>Command Line *</label>
+            <input id="finishCmd2" type="text" placeholder="example: echo Done">
+          </div>
+          <div class="input-row actions-row">
+            <button id="executeBtn">Rename Now</button>
+            <button id="renameWithLogsBtn" class="btn">Rename with Logs</button>
+            <button id="addToQueueBtn" class="btn">Add to Queue</button>
+          </div>
+          <p class="hint">Fields marked with * are required</p>
+          <button id="closeInlineLogs" class="icon-btn sm hidden" aria-label="Close logs"><span class="material-symbols-outlined">close</span></button>
+          <div id="inlineLogs" class="terminal hidden"></div>
+        </div>
+        <div id="panelRecent" class="panel hidden">
+          <h3>Recent</h3>
+          <div id="recentList" class="recent-list"></div>
+        </div>
+        <div id="panelQueue" class="panel hidden">
+          <h3>Queue</h3>
+          <div class="section">
+            <div class="section-header">Queued</div>
+            <div id="queueList" class="recent-list"></div>
+          </div>
+          <div class="section hidden" id="runningSection">
+            <div class="section-header">Running</div>
+            <div id="queueCurrent" class="recent-row hidden"></div>
+          </div>
+          <div class="section" id="finishedSection">
+            <div class="section-header">Finished</div>
+            <div id="queueFinishedList" class="recent-list"></div>
+            <div class="input-row actions-row"><button id="clearFinishedBtn" class="icon-btn sm" aria-label="Clear finished"><span class="material-symbols-outlined">close</span></button></div>
+          </div>
+          <label>Run On Finish</label>
+          <div class="input-row">
+            <select id="onFinishQ" style="flex:1;height:40px;padding:10px 12px;border:1px solid #2a2a2e;border-radius:12px;background:#1a1821;color:#eaeaea">
+              <option value="none">None</option>
+              <option value="shutdown">Shutdown (OS)</option>
+              <option value="restart">Restart (OS)</option>
+              <option value="close">Close (App)</option>
+              <option value="run_cmd">Run Command Line (CMD)</option>
+            </select>
+            <button id="addFinishBtnQ" class="icon-btn hidden" aria-label="Add action"><span class="material-symbols-outlined">add</span></button>
+          </div>
+          <div id="finishCmdFieldQ" class="conditional hidden">
+            <label>Command Line *</label>
+            <input id="finishCmdQ" type="text" placeholder="example: shutdown /l">
+          </div>
+          <div id="onFinishQ2Row" class="conditional hidden">
+            <div class="input-row">
+              <select id="onFinishQ2" style="flex:1;height:40px;padding:10px 12px;border:1px solid #2a2a2e;border-radius:12px;background:#1a1821;color:#eaeaea">
+                <option value="none">None</option>
+                <option value="shutdown">Shutdown (OS)</option>
+                <option value="restart">Restart (OS)</option>
+                <option value="close">Close (App)</option>
+                <option value="run_cmd">Run Command Line (CMD)</option>
+              </select>
+              <button id="removeFinishBtnQ" class="icon-btn" aria-label="Remove action"><span class="material-symbols-outlined">remove</span></button>
+            </div>
+          </div>
+          <div id="finishCmdFieldQ2" class="conditional hidden">
+            <label>Command Line *</label>
+            <input id="finishCmdQ2" type="text" placeholder="example: echo Done">
+          </div>
+          <div class="input-row actions-row">
+            <button id="startQueueBtn" class="btn primary">Start Queue</button>
+            <button id="startQueueLogsBtn" class="btn">Start Queue with Logs</button>
+            <button id="pauseQueueBtn" class="btn hidden">Pause Queue</button>
+            <button id="clearQueueBtn" class="btn">Clear Queue</button>
+          </div>
+          <button id="closeQueueInlineLogs" class="icon-btn sm hidden" aria-label="Close logs"><span class="material-symbols-outlined">close</span></button>
+          <div id="queueInlineLogs" class="terminal hidden"></div>
+    </div>
+    <div id="toast" class="toast hidden"></div>
+  </div>
+      <div class="results">
+        <div class="panel" id="resultsPanel">
+          <div class="section-header"><span>Results</span><button id="resultsToggle" class="icon-btn" aria-label="Toggle"><span class="material-symbols-outlined">expand_less</span></button></div>
+          <div id="resultsBody">
+            <div class="status" id="status"></div>
+            <div class="stats">
+            <div class="stat">
+              <p>Total Files</p>
+              <p id="totalFiles" class="big">0</p>
+            </div>
+            <div class="stat">
+              <p>Processed Files</p>
+              <p id="processedFiles" class="big">0</p>
+            </div>
+            <div class="stat">
+              <p>Renamed Files</p>
+              <p id="renamedFiles" class="big accent">0</p>
+            </div>
+            <div class="stat">
+              <p>Replaced Strings</p>
+              <p id="replacedStrings" class="big">0</p>
+            </div>
+            <div class="stat">
+              <p>Repacked</p>
+              <p id="repacked" class="big">0</p>
+            </div>
+            <div class="stat">
+              <p>Failed</p>
+              <p id="failed" class="big">0</p>
+            </div>
+            </div>
+            <div id="errors" class="errors"></div>
+            <div id="logs" class="logs"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="helpModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">CLI</div>
+        <div class="modal-body">
+          <div id="cliStatus" class="status-list">
+            <div class="status-item"><span>CLI Detected</span><span id="status-cli" class="status-dot"></span></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="fetchFilesBtn" class="btn primary">Fetch CLI</button>
+          <button id="closeHelp" class="btn">Close</button>
+        </div>
+      </div>
+    </div>
+    <div id="changelogModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">Changelog</div>
+        <div class="modal-body">
+          <div id="changelogList" class="changelog"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="updateBtn" class="btn primary">Update</button>
+          <button id="closeChangelog" class="btn">Close</button>
+        </div>
+      </div>
+    </div>
+    <div id="creditsModal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">Credits</div>
+        <div class="modal-body">
+          <div class="credits-list">
+            <div class="credit-row">
+              <img class="avatar" src="https://cdn.discordapp.com/avatars/1019585748363649024/c5abe23430e3ca7b2b52b5ae7c2c372f.webp?size=240" alt="nostradamus5515">
+              <div class="credit-info">
+                <div class="credit-name">nostradamus5515</div>
+                <div class="credit-role">CLI Program (Backend)</div>
+                <div class="credit-tag">@nostradamus5515</div>
+              </div>
+              <a class="icon-link" href="https://github.com/0wn1" target="_blank" rel="noopener" aria-label="GitHub">
+                <svg class="gh" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12c0 4.7 3 8.7 7.2 10.1.5.1.7-.2.7-.5 0-.2 0-.9 0-1.6-2.9.6-3.6-1.2-3.6-1.2-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 2.6 1.3 3.3.9.1-.7.4-1.2.7-1.5-2.4-.3-5-1.2-5-5.4 0-1.2.4-2.1 1.1-2.9-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 3 1.1.9-.2 1.8-.4 2.7-.4s1.8.1 2.7.4c2.1-1.5 3-1.1 3-1.1.7 1.5.2 2.6.1 2.9.7.8 1.1 1.7 1.1 2.9 0 4.3-2.6 5.1-5.2 5.4.4.3.8 1 .8 2.1 0 1.5 0 2.6 0 3 .1.3.3.6.8.5 4.2-1.4 7.2-5.4 7.2-10.1C22.5 6.2 17.8 1.5 12 1.5Z"></path></svg>
+              </a>
+            </div>
+            <div class="credit-row">
+              <img class="avatar" src="https://cdn.discordapp.com/avatars/833566711465639936/e0c6789d667febb0e4c4a5f42cf57987.webp?size=240" alt="nofxap2">
+              <div class="credit-info">
+                <div class="credit-name">nofxap2</div>
+                <div class="credit-role">UI</div>
+                <div class="credit-tag">@nofxap2</div>
+              </div>
+              <a class="icon-link" href="https://github.com/nofxap" target="_blank" rel="noopener" aria-label="GitHub">
+                <svg class="gh" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 1.5C6.2 1.5 1.5 6.2 1.5 12c0 4.7 3 8.7 7.2 10.1.5.1.7-.2.7-.5 0-.2 0-.9 0-1.6-2.9.6-3.6-1.2-3.6-1.2-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1 2.6 1.3 3.3.9.1-.7.4-1.2.7-1.5-2.4-.3-5-1.2-5-5.4 0-1.2.4-2.1 1.1-2.9-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 3 1.1.9-.2 1.8-.4 2.7-.4s1.8.1 2.7.4c2.1-1.5 3-1.1 3-1.1.7 1.5.2 2.6.1 2.9.7.8 1.1 1.7 1.1 2.9 0 4.3-2.6 5.1-5.2 5.4.4.3.8 1 .8 2.1 0 1.5 0 2.6 0 3 .1.3.3.6.8.5 4.2-1.4 7.2-5.4 7.2-10.1C22.5 6.2 17.8 1.5 12 1.5Z"></path></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="closeCredits" class="btn">Close</button>
+        </div>
+      </div>
+    </div>
+    <div id="messageModal" class="modal hidden">
+      <div class="modal-content">
+        <div id="messageTitle" class="modal-header"></div>
+        <div class="modal-body">
+          <div id="messageBody"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="messageAction" class="btn primary hidden"></button>
+          <button id="closeMessage" class="btn">Close</button>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
