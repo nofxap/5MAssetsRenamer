@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="MenuStripFix.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ProjectPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PropertyGridFix.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="QuaternionBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="ReadOnlyPropertyGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="STNodeEditor\FrmNodePreviewPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="STNodeEditor\FrmSTNodePropertyInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="STNodeEditor\FrmSTNodePropertySelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="STNodeEditor\STNodeEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="STNodeEditor\STNodeEditorPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="STNodeEditor\STNodePropertyGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="STNodeEditor\STNodeTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="TextBoxFix.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="TextBoxScrollSyncFix.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ToolStripFix.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ToolStripSplitButtonFix.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ToolStripSpringTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="TreeViewFix.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

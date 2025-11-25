@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="ExploreForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AwcForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\FxcForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\GenericForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\HexForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MetaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ModelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ModelLightForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ModelMatForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\RelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TextForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\XmlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\YcdForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\YtdForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\YvrForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\YwrForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PedsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\DeleteGrassPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditAudioAmbientRulePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditAudioAmbientZoneListPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditAudioAmbientZonePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditAudioFilePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditAudioInteriorPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditAudioInteriorRoomPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditAudioStaticEmitterListPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditAudioStaticEmitterPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditMultiPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditProjectManifestPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditProjectPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditScenarioNodePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditScenarioYmtPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditTrainNodePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditTrainTrackPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYbnBoundPolyPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYbnBoundsPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYbnBoundVertexPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYbnPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYmapBoxOccluderPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYmapCarGenPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYmapEntityPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYmapGrassPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYmapLodLightPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYmapOccludeModelPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYmapPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYndNodePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYndPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYnvPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYnvPointPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYnvPolyPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYnvPortalPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYtypArchetypePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYtypMloEntSetPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYtypMloPortalPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYtypMloRoomPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\EditYtypPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\GenerateLODLightsPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\GenerateNavMeshPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\ProjectExplorerPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\Panels\WelcomePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Project\ProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\AudioExplorerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\BinarySearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\BrowseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\ConvertAssetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\ExtractKeysForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\ExtractRawForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\ExtractScriptsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\ExtractShadersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\ExtractTexForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\ImportFbxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\JenkGenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Tools\JenkIndForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Utils\ColourPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Utils\ColourPickerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Utils\KeyBindForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Utils\SelectFolderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Utils\TextInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="VehicleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="WorldForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="World\CutsceneForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="World\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="World\StatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="World\WorldInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="World\WorldSearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
