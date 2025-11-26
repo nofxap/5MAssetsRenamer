@@ -1,7 +1,7 @@
 # 5M Assets Renamer
 
 A Windows-first asset renaming tool with a simple UI (no Node server) and a Rust/Tauri/C# backend. Supports Replace, Prefix, and Suffix modes.
-<img width="1202" height="832" alt="image" src="https://github.com/user-attachments/assets/8980ac14-a347-49c2-853e-04237cca5126" />
+<img width="1442" height="932" alt="image" src="https://github.com/user-attachments/assets/787dede8-e45e-430f-b7ae-bd28756581fb" />
 
 ## Features
 - Replace, Prefix, and Suffix rename modes
