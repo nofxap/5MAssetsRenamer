@@ -2,6 +2,7 @@ const segment=document.getElementById('modeSegment')
 const replaceField=document.getElementById('replaceField')
 const prefixField=document.getElementById('prefixField')
 const suffixField=document.getElementById('suffixField')
+const findTextInput=document.getElementById('findText')
 const executeBtn=document.getElementById('executeBtn')
 const statusEl=document.getElementById('status')
 const errorsEl=document.getElementById('errors')
@@ -76,6 +77,12 @@ function updateMode(){
   replaceField.classList.toggle('hidden',v!=='replace')
   prefixField.classList.toggle('hidden',v!=='prefix')
   suffixField.classList.toggle('hidden',v!=='suffix')
+  if(findTextInput){
+    const label=findTextInput.previousElementSibling
+    const hide=v!=='replace'
+    if(label) label.classList.toggle('hidden',hide)
+    findTextInput.classList.toggle('hidden',hide)
+  }
 }
 segment.addEventListener('click',(e)=>{
   const t=e.target
@@ -267,7 +274,6 @@ function updateStatsFromLine(l){
   const pf=document.getElementById('processedFiles')
   const rf=document.getElementById('renamedFiles')
   const rs=document.getElementById('replacedStrings')
-  const rp=document.getElementById('repacked')
   const fl=document.getElementById('failed')
   const s=l.trim()
   if(/Found.*total files/i.test(s)){ const n=firstInt(s); if(n!==null) tf.textContent=String(n) }
@@ -276,10 +282,9 @@ function updateStatsFromLine(l){
   else if(/Renamed.*files/i.test(s)){ const n=firstInt(s); if(n!==null) rf.textContent=String(n) }
   else if(/^Renamed Files:/i.test(s)){ const n=firstInt(s); if(n!==null) rf.textContent=String(n) }
   else if(/^Replaced Strings:/i.test(s)){ const n=firstInt(s); if(n!==null) rs.textContent=String(n) }
-  else if(/^Repacked:/i.test(s) && /Failed:/i.test(s)){
-    const parts=s.split('|')
-    if(parts[0]){ const n=firstInt(parts[0]); if(n!==null) rp.textContent=String(n) }
-    if(parts[1]){ const n=firstInt(parts[1]); if(n!==null) fl.textContent=String(n) }
+  else if(/Failed:/i.test(s)){
+    const n=firstInt(s.split(/Failed:/i)[1]||'')
+    if(n!==null) fl.textContent=String(n)
   }
 }
 function updateStatsFromChunk(chunk){ const lines=String(chunk||'').split(/\r?\n/); for(let i=0;i<lines.length;i++){ if(lines[i].trim()) updateStatsFromLine(lines[i]) } }
@@ -465,9 +470,13 @@ executeBtn.addEventListener('click',async()=>{
   const prefix=document.getElementById('prefix').value.trim()
   const suffix=document.getElementById('suffix').value.trim()
 
-  if(!inputPath||!findText){
-    showMessage('Missing fields','Please provide input path and find text')
-    return
+  if(!inputPath){ showMessage('Missing fields','Please provide input path'); return }
+  if(currentMode==='replace'){
+    if(!findText || !replaceText){ showMessage('Missing fields','Provide find and replace text'); return }
+  }else if(currentMode==='prefix'){
+    if(!prefix){ showMessage('Missing fields','Provide prefix text'); return }
+  }else if(currentMode==='suffix'){
+    if(!suffix){ showMessage('Missing fields','Provide suffix text'); return }
   }
 
   setStatus('running')
@@ -494,14 +503,12 @@ executeBtn.addEventListener('click',async()=>{
     const pf=document.getElementById('processedFiles')
     const rf=document.getElementById('renamedFiles')
     const rs=document.getElementById('replacedStrings')
-    const rp=document.getElementById('repacked')
     const fl=document.getElementById('failed')
     if(s){
       tf.textContent=String(s.total_files||0)
       pf.textContent=String(s.processed_files||0)
       rf.textContent=String(s.renamed_files||0)
       rs.textContent=String(s.replaced_strings||0)
-      rp.textContent=String(s.repacked||0)
       fl.textContent=String(s.failed||0)
     }
     if(d.stderr){
@@ -513,6 +520,7 @@ executeBtn.addEventListener('click',async()=>{
     }else{
       setStatus('done')
       notify('Completed')
+      showMessage('Success','Successfully renamed.')
       const rec=loadRecents()
       rec.push({
         ts: Date.now(),
@@ -556,7 +564,7 @@ executeBtn.addEventListener('click',async()=>{
           let cliUrl=null
           const assets=Array.isArray(rel.assets)?rel.assets:[]
           for(let i=0;i<assets.length;i++){ const a=assets[i]; const name=String(a.name||''); const url=String(a.browser_download_url||''); if(/codewalkercli|\.exe$/i.test(name)){ cliUrl=url; break } }
-          if(cliUrl){ await invoke('download_cli',{ url: cliUrl }); try{ const v=(rel.tag_name||rel.name||'').trim(); if(v) localStorage.setItem('cliVersion',v) }catch{}; messageModal.classList.add('hidden'); const again=await runWithTauri(payload); if(again.ok){ const d2=again.data; const s2=d2.summary||null; if(s2){ document.getElementById('totalFiles').textContent=String(s2.total_files||0); document.getElementById('processedFiles').textContent=String(s2.processed_files||0); document.getElementById('renamedFiles').textContent=String(s2.renamed_files||0); document.getElementById('replacedStrings').textContent=String(s2.replaced_strings||0); document.getElementById('repacked').textContent=String(s2.repacked||0); document.getElementById('failed').textContent=String(s2.failed||0) } setStatus('done') } else { setStatus('failed') } }
+          if(cliUrl){ await invoke('download_cli',{ url: cliUrl }); try{ const v=(rel.tag_name||rel.name||'').trim(); if(v) localStorage.setItem('cliVersion',v) }catch{}; messageModal.classList.add('hidden'); const again=await runWithTauri(payload); if(again.ok){ const d2=again.data; const s2=d2.summary||null; if(s2){ document.getElementById('totalFiles').textContent=String(s2.total_files||0); document.getElementById('processedFiles').textContent=String(s2.processed_files||0); document.getElementById('renamedFiles').textContent=String(s2.renamed_files||0); document.getElementById('replacedStrings').textContent=String(s2.replaced_strings||0); document.getElementById('failed').textContent=String(s2.failed||0) } setStatus('done') } else { setStatus('failed') } }
         }catch{}
       })
     }else{
@@ -759,7 +767,14 @@ addToQueueBtn.addEventListener('click',()=>{
   const replaceText=document.getElementById('replaceText').value.trim()
   const prefix=document.getElementById('prefix').value.trim()
   const suffix=document.getElementById('suffix').value.trim()
-  if(!inputPath||!findText){ showMessage('Missing fields','Please provide input path and find text'); return }
+  if(!inputPath){ showMessage('Missing fields','Please provide input path'); return }
+  if(currentMode==='replace'){
+    if(!findText || !replaceText){ showMessage('Missing fields','Provide find and replace text'); return }
+  }else if(currentMode==='prefix'){
+    if(!prefix){ showMessage('Missing fields','Provide prefix text'); return }
+  }else if(currentMode==='suffix'){
+    if(!suffix){ showMessage('Missing fields','Provide suffix text'); return }
+  }
   const q=loadQueue()
   const item={ inputPath, outputPath:outputPath||null, findText, mode:currentMode, replaceText:currentMode==='replace'?replaceText||'':null, prefix:currentMode==='prefix'?prefix||'':null, suffix:currentMode==='suffix'?suffix||'':null }
   if(editingQueueIndex!==null){ q.splice(editingQueueIndex,1); q.push(item); editingQueueIndex=null; addToQueueBtn.textContent='Add to Queue'; showMessage('Queued','Removed & readded to queue') }

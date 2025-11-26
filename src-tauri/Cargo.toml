@@ -18,7 +18,8 @@ zip = { version = "5.1", default-features = false, features = ["deflate"] }
 rfd = "0.14"
 
 [profile.release]
-opt-level = "s"
-lto = true
-codegen-units = 1
+opt-level = 3
+strip = "debuginfo"
+lto = "off"
+codegen-units = 16
 panic = "unwind"

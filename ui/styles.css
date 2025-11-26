@@ -123,6 +123,10 @@ input:focus{border-color:#8d79ff;box-shadow:0 0 0 3px rgba(141,121,255,0.2)}
 .theme-light .app{color:#1e1f25}
 .theme-light .sidebar{border-right-color:#d6d8df}
 .theme-light .panel h2,.theme-light .panel h3,.theme-light label{color:#2a2b31}
+.theme-light .section{background:#ffffff;border-color:#d6d8df}
+.theme-light .section-header{color:#2a2b31}
+.theme-light .recent-row{background:#f9f9fb;border-color:#d6d8df}
+.theme-light select{background:#f3f4f7 !important;color:#1e1f25 !important;border-color:#d6d8df !important}
 .theme-light input{background:#f3f4f7;color:#1e1f25;border-color:#d6d8df}
 .theme-light input::placeholder{color:#7c7f8c}
 .theme-light input:focus{border-color:#7e6cff;box-shadow:0 0 0 3px rgba(126,108,255,0.2)}
@@ -135,6 +139,9 @@ input:focus{border-color:#8d79ff;box-shadow:0 0 0 3px rgba(141,121,255,0.2)}
 .theme-light .logs pre{background:#f7f7fa;color:#1e1f25;border-color:#d6d8df}
 .theme-light .errors .item{background:#ffe9e9;color:#a13f3f;border-color:#f0bbbb}
 .theme-light .sidebar #helpBtn{background:#f1f2f6;color:#2a2b31;border-color:#d6d8df}
+.theme-light .sidebar #renamerBtn{background:#f1f2f6;color:#2a2b31;border-color:#d6d8df}
+.theme-light .sidebar #queueBtn{background:#f1f2f6;color:#2a2b31;border-color:#d6d8df}
+.theme-light .sidebar #recentBtn{background:#f1f2f6;color:#2a2b31;border-color:#d6d8df}
 .theme-light .icon-btn{background:#f1f2f6;color:#2a2b31;border-color:#d6d8df}
 .theme-light .icon-link{color:#2a2b31}
 .theme-light .input-row .icon-btn{width:40px;height:40px}
