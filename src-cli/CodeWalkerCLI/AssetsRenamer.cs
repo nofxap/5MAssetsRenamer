@@ -329,7 +329,6 @@ namespace CodeWalkerCLI
             metadataFiles.AddRange(Directory.GetFiles(basePath, "*.ymap", SearchOption.AllDirectories));
             metadataFiles.AddRange(Directory.GetFiles(basePath, "*.ymf", SearchOption.AllDirectories));
             metadataFiles.AddRange(Directory.GetFiles(basePath, "*.ycd", SearchOption.AllDirectories));
-            metadataFiles.AddRange(Directory.GetFiles(basePath, "*.ybn", SearchOption.AllDirectories));
 
             int total = metadataFiles.Count;
             int current = 0;
