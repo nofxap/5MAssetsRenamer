@@ -1,0 +1,16 @@
+name: UV animation regression tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  uv-animation-tests:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Test UV clip renaming and binary repacking
+        run: dotnet run --project tests/UvClipHashTests/UvClipHashTests.csproj --configuration Release

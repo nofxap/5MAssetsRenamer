@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="AssetsRenamer.cs" />
+    <Compile Include="UvClipHashRenamer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

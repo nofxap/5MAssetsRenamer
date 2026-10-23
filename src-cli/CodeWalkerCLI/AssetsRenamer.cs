@@ -22,6 +22,7 @@ namespace CodeWalkerCLI
         private List<string> _xmlFilesToClean;
         private HashSet<string> _allRegisteredStrings;
         private bool _isPrefixSuffixMode;
+        private readonly UvClipHashRenamer _uvClipHashes = new UvClipHashRenamer(JenkHash.GenHash);
 
         public AssetsRenamer(RenameOptions options)
         {
@@ -57,6 +58,7 @@ namespace CodeWalkerCLI
             if (_renameMap.Count > 0)
             {
                 BuildCompleteHashMappings(workingPath);
+                BuildUvClipHashMappings(workingPath);
                 RenamePhysicalFiles(workingPath);
             }
 
@@ -240,6 +242,29 @@ namespace CodeWalkerCLI
             Log($"Built {_hashToNewName.Count} hash mappings", ConsoleColor.Green);
         }
 
+        private void BuildUvClipHashMappings(string basePath)
+        {
+            foreach (var path in Directory.GetFiles(basePath, "*.ydr", SearchOption.AllDirectories))
+            {
+                var oldName = Path.GetFileNameWithoutExtension(path);
+                var newName = ApplyAllRenameMappings(oldName);
+                if (string.Equals(oldName, newName, StringComparison.OrdinalIgnoreCase)) continue;
+
+                try
+                {
+                    var model = new YdrFile();
+                    model.Load(File.ReadAllBytes(path));
+                    var shaders = model.Drawable?.ShaderGroup?.Shaders?.data_items;
+                    if (shaders == null) throw new InvalidDataException("Missing shader table");
+                    _uvClipHashes.AddModel(oldName, newName, shaders.Length);
+                }
+                catch (Exception ex)
+                {
+                    LogError($"UV clip mapping: {Path.GetFileName(path)} - {ex.Message}");
+                }
+            }
+        }
+
         private string ApplyAllRenameMappings(string input)
         {
             var result = input;
@@ -329,6 +354,7 @@ namespace CodeWalkerCLI
             metadataFiles.AddRange(Directory.GetFiles(basePath, "*.ymap", SearchOption.AllDirectories));
             metadataFiles.AddRange(Directory.GetFiles(basePath, "*.ymf", SearchOption.AllDirectories));
             metadataFiles.AddRange(Directory.GetFiles(basePath, "*.ycd", SearchOption.AllDirectories));
+            metadataFiles.AddRange(Directory.GetFiles(basePath, "*.ydr", SearchOption.AllDirectories));
 
             int total = metadataFiles.Count;
             int current = 0;
@@ -359,6 +385,9 @@ namespace CodeWalkerCLI
 
             foreach (var file in textFiles.Distinct())
             {
+                // Generated metadata XML has already been renamed. In particular,
+                // prefix/suffix operations must not be applied a second time.
+                if (_xmlFilesToClean.Contains(file)) continue;
                 ProcessTextFile(file);
 
                 current++;
@@ -370,6 +399,12 @@ namespace CodeWalkerCLI
 
         private void ProcessMetadataFile(string binaryPath, string fileType)
         {
+            if (fileType == "ydr")
+            {
+                ProcessDrawableName(binaryPath);
+                return;
+            }
+
             var xmlPath = binaryPath + ".xml";
 
             try
@@ -450,6 +485,33 @@ namespace CodeWalkerCLI
             }
         }
 
+        private void ProcessDrawableName(string path)
+        {
+            try
+            {
+                var model = new YdrFile();
+                model.Load(File.ReadAllBytes(path));
+                var oldName = model.Drawable?.Name;
+                if (string.IsNullOrEmpty(oldName)) return;
+                var newName = ApplyAllRenameMappings(oldName);
+                if (oldName == newName) return;
+
+                // Keep the loaded drawable and its embedded texture data intact.
+                // An XML round trip without DDS sidecars would discard pixels.
+                model.Drawable.Name = newName;
+                byte[] renamed = model.Save();
+                File.WriteAllBytes(path, renamed);
+                RegisterString(newName);
+                _processedFiles.Add(path);
+                _result.ReplacedStrings++;
+                Log($"YDR: {Path.GetFileName(path)} - Internal name updated", ConsoleColor.Green);
+            }
+            catch (Exception ex)
+            {
+                LogError($"YDR: {Path.GetFileName(path)} - {ex.Message}");
+            }
+        }
+
         private void ExtractAndRegisterStringsFromXml(string xml)
         {
             var stringPattern = @">([^<>]+)<";
@@ -491,12 +553,12 @@ namespace CodeWalkerCLI
                 return xml;
             }
 
-            var modified = xml;
-            int replacements = 0;
+            int replacements;
+            var modified = _uvClipHashes.Rename(xml, out replacements);
             var replacementLog = new List<string>();
 
             var hashPattern = @"hash_([0-9A-Fa-f]{8})";
-            var hashMatches = Regex.Matches(xml, hashPattern);
+            var hashMatches = Regex.Matches(modified, hashPattern);
 
             foreach (Match match in hashMatches)
             {
@@ -577,6 +639,9 @@ namespace CodeWalkerCLI
                 var content = File.ReadAllText(path);
                 var original = content;
                 int replacements = 0;
+
+                if (path.EndsWith(".ycd.xml", StringComparison.OrdinalIgnoreCase))
+                    content = _uvClipHashes.Rename(content, out replacements);
 
                 foreach (var kvp in _renameMap)
                 {

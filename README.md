@@ -7,6 +7,26 @@ A Windows-first asset renaming tool with a simple UI (no Node server) and a Rust
 - Replace, Prefix, and Suffix rename modes
 - Status, stats, and error display per run
 - Works from static `ui/` files (no dev server)
+- Preserves UV animation material bindings when renaming drawable models
+- Updates internal YDR drawable names while preserving embedded texture data
+
+### UV animation regression tests
+
+With the .NET 8 SDK installed, run:
+
+```sh
+dotnet run --project tests/UvClipHashTests/UvClipHashTests.csproj --configuration Release
+```
+
+The tests use synthetic assets to check replacement, prefix and suffix operations,
+including a binary YDR/YCD rename and repack. UV clip hashes are recalculated as
+`JOAAT(model name) + material index + 1` using the original drawable's shader count.
+Skeletal clips, unmatched materials and ambiguous hash mappings are left unchanged.
+The current implementation discovers materials from `.ydr` models; models inside
+`.ydd` dictionaries and `.yft` fragments are not covered by this correction.
+Internal YDR model names are renamed directly in the loaded drawable, without an
+XML/DDS round trip. Texture names and pixel data are preserved; this does not add
+support for renaming texture entries in YTD dictionaries or shader samplers.
 
 ## UI Quick Start (User)
 - Download the release

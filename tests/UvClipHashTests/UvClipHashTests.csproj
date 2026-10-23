@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <StartupObject>UvClipHashTests</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src-cli/CodeWalker.Core/CodeWalker.Core.csproj" />
+    <Compile Include="../../src-cli/CodeWalkerCLI/AssetsRenamer.cs" Link="AssetsRenamer.cs" />
+    <Compile Include="../../src-cli/CodeWalkerCLI/Program.cs" Link="Program.cs" />
+    <Compile Include="../../src-cli/CodeWalkerCLI/UvClipHashRenamer.cs" Link="UvClipHashRenamer.cs" />
+  </ItemGroup>
+</Project>
